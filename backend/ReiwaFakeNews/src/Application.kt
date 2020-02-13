@@ -6,6 +6,7 @@ import io.ktor.request.*
 import io.ktor.features.*
 import io.ktor.routing.*
 import io.ktor.http.*
+import io.ktor.serialization.serialization
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -13,17 +14,12 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 @kotlin.jvm.JvmOverloads
 fun Application.module(testing: Boolean = false) {
     install(CORS) {
-        method(HttpMethod.Options)
-        method(HttpMethod.Put)
-        method(HttpMethod.Delete)
-        method(HttpMethod.Patch)
-        header(HttpHeaders.Authorization)
-        header("MyCustomHeader")
-        allowCredentials = true
-        anyHost() // @TODO: Don't do this in production if possible. Try to limit it.
+        allowSameOrigin = false
+        anyHost()
     }
 
     install(ContentNegotiation) {
+        serialization()
     }
 
     routing {
