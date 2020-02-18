@@ -1,0 +1,7 @@
+version: "3"
+services:
+  app:
+    image: yt8492/reiwa-fake-news-backend:latest
+    container_name: "reiwa-fake-news-backend"
+    ports:
+      - "8080:8080"
