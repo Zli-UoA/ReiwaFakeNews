@@ -9,9 +9,7 @@ import io.ktor.routing.get
 
 fun Route.getNewsRoute(getNewsUseCase: GetNewsUseCase) {
 
-    data class GetNewsRequest(val n: Int = 3)
-
-    get("/news") {
+    get("/news") { param ->
         val n = call.parameters["n"]?.toInt() ?: 3
         val result = getNewsUseCase.execute(n)
         call.respond(HttpStatusCode.OK, result)
