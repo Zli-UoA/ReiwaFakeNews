@@ -10,8 +10,6 @@ import io.ktor.response.*
 import io.ktor.features.*
 import io.ktor.routing.*
 import io.ktor.http.*
-import io.ktor.locations.KtorExperimentalLocationsAPI
-import io.ktor.locations.Locations
 import io.ktor.serialization.serialization
 import io.ktor.util.KtorExperimentalAPI
 import kotlinx.serialization.UnstableDefault
@@ -19,7 +17,6 @@ import kotlinx.serialization.json.Json
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
-@KtorExperimentalLocationsAPI
 @KtorExperimentalAPI
 @UnstableDefault
 @Suppress("unused") // Referenced in application.conf
@@ -36,8 +33,6 @@ fun Application.module(testing: Boolean = false) {
     install(ContentNegotiation) {
         serialization(json = Json.indented)
     }
-
-    install(Locations)
 
     install(Routing) {
         val newsRepository = NewsRepositoryOnRDBMS
