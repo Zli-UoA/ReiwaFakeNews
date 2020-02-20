@@ -1,2 +1,2 @@
-include ':modules:domain', ':modules:usecase'
+include ':modules:domain', ':modules:usecase', ':modules:adapter'
 rootProject.name = "ReiwaFakeNews"
