@@ -1,0 +1,28 @@
+version: "3"
+services:
+  app:
+    image: yt8492/reiwa-fake-news-backend:latest
+    container_name: "reiwa-fake-news-backend"
+    ports:
+      - "8080:8080"
+    environment:
+      DB_DRIVER: org.postgresql.Driver
+      DB_URL: jdbc:postgresql://db:5432/reiwa-fake-news-db
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+    depends_on:
+      - db
+
+  db:
+    image: postgres:10.1-alpine
+    container_name: "reiwa-fake-news-db"
+    volumes:
+      - "db-data:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_DB: reiwa-fake-news-db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+volumes:
+  db-data:
+    driver: local
