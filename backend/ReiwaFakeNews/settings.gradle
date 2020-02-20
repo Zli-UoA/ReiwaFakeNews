@@ -1,1 +1,2 @@
+include ':modules:domain'
 rootProject.name = "ReiwaFakeNews"
