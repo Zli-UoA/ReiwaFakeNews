@@ -1,5 +1,4 @@
 //axiosを使わずmockの方
-import axios from 
 var music = new Audio();
 
 //var text = ["お疲れ様です。頑張ってください。ああああ、これでOK!","hoge","fuga"];
