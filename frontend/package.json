@@ -1,0 +1,28 @@
+{
+  "name": "cubism4webgl_samples",
+  "version": "1.0.0",
+  "description": " `Reiwa Fake News` refer to this url repository",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel public/index.html",
+    "build": "parcel build src/main.ts -d dist/prd --no-source-maps",
+    "copy": "mkdirp dist | ncp l2dsdk/Sample/TypeScript/Demo/Resources/ dist/Resources",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://tatsuteb@github.com/tatsuteb/Cubism4WebGL_Samples.git"
+  },
+  "author": "tatsuteb",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tatsuteb/Cubism4WebGL_Samples/issues"
+  },
+  "homepage": "https://github.com/tatsuteb/Cubism4WebGL_Samples#readme",
+  "devDependencies": {
+    "ncp": "^2.0.0",
+    "node-sass": "^4.12.0",
+    "parcel-bundler": "^1.12.3",
+    "typescript": "^3.6.3"
+  }
+}
