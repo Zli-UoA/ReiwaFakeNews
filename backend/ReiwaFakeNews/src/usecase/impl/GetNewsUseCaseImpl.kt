@@ -9,12 +9,12 @@ class GetNewsUseCaseImpl(
 ) : GetNewsUseCase {
 
     override suspend fun execute(n: Int): GetNewsResult {
-        if (n <= 0) return GetNewsResult.Failure.NewsSizeRequirePlus
+        if (n <= 0) return GetNewsResult.Failure.NewsSizeRequirePlus()
         return try {
             val newsList = newsRepository.findRandom(n)
             GetNewsResult.Success(newsList)
         } catch (e: IndexOutOfBoundsException) {
-            GetNewsResult.Failure.TooBigGetNewsSize
+            GetNewsResult.Failure.TooBigGetNewsSize()
         }
     }
 }
