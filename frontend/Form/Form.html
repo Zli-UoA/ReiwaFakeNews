@@ -3,13 +3,29 @@
     <meta charset="UTF-8">
     <title>FUTURE FORM</title>
 </head>
-<script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
-<script src="main.js"></script>
 <style>
-    body{
-        background-color: #FFFF66;
+
+    .anime {
+        width: 100%;
+        height: 100%;
+        max-height: 1080px;
+        position: relative;
     }
-    .textfield{
+
+
+
+    .mainSite {
+        width: 100%;
+        height: 100%;
+    }
+
+
+    body
+    {
+        background-color: #000000;
+    }
+    .textfield
+    {
         margin: 0;
         position: absolute;
         top: 50%;
@@ -17,10 +33,10 @@
         margin-right: -50%;
         transform: translate(-50%, -50%)
     }
-    .btn-circle-3d {
-        display: inline-block;
+    .btn-circle-3d
+    {
         text-decoration: none;
-        background: #ff8181;
+        background: #00aa00;
         color: #FFF;
         width: 80px;
         height: 80px;
@@ -29,21 +45,23 @@
         text-align: center;
         font-weight: bold;
         overflow: hidden;
-        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.29);
-        border-bottom: solid 3px #bd6565;
+        box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.29);
+        border-bottom: solid 3px #FFFFFF;
         transition: .4s;
+        margin: 0vmax auto;
+        display: block;
     }
 
-    .btn-circle-3d:active {
+    .btn-circle-3d:active
+    {
         -webkit-transform: translateY(2px);
         transform: translateY(2px);
-        box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 0 1px rgb(124,252,0);
         border-bottom: none;
     }
-    .padding{
-        padding: 60px;
-    }
-    .textarea {
+
+    .textarea
+    {
         border: 2px solid #0a0;
         border-radius: 0.67em;
         padding: 0.5em;
@@ -53,18 +71,92 @@
         font-size: 1em;
         line-height: 1.2;
         outline: aliceblue;
+
     }
+    .main
+    {
+        color: #FFFFFF;
+        font-family: “American Typewriter”;
+    }
+    .form1
+    {
+        zoom: 200%;
+    }
+
 
 </style>
 <body>
-<h1 class="main">FUTURE FORM</h1>
-<h3 class=""></h3>
-<div class="textfield">
-    <form name="form1">
-        <textarea class="textarea" name="textarea1" value="1" cols="50" rows=5 maxlength="15" placeholder="こちらにみなさんが経験なさった令和の歴史を記してください。"></textarea>
-    </form>
-    <a class="padding"></a>
-    <a href="#" class="btn-circle-3d" onclick="send()">SEND</a>
+<div class="anime">
+<div class="line1" id="line1"></div>
+<div class="line2" id="line2"></div>
+<div class="desinks" id="desinks">
+    <span>FUTURE</span>
+    <span> </span>
+    <span>FORM</span>
+</div>
+<style>
+    @import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700);
+
+    body{
+        background-color:#111;
+        overflow:hidden;
+    }
+    #line1 {
+        height:10px;
+        width:50%;
+        background-color:white;
+        position:absolute;
+        top:50%;
+        margin-top:-5px;
+        left:50%;
+        margin-left:-25%;
+    }
+
+    #line2 {
+        height:10px;
+        width:50%;
+        background-color:white;
+        position:absolute;
+        top:50%;
+        margin-top:-5px;
+        left:50%;
+        margin-left:-25%;
+    }
+    .desinks {
+        color:white;
+        font-family:'Open Sans Condensed', sans-serif;
+        font-weight:bold;
+        text-transform:uppercase;
+        font-size:8em;
+        text-align:center;
+        transform: skew(0) rotate(0);
+        top:50%;
+        margin-top:-0.7em;
+        left:50%;
+        margin-left:-2.4em;
+        position:absolute;
+        display:none;
+
+    }
+
+</style>
+</div>
+<div class="mainSite">
+    <h1 class="main">FUTURE FORM</h1>
+    <h3 class=""></h3>
+    <div class="textfield">
+        <div class="form1">
+            <form name="form1">
+                <textarea class="textarea" name="textarea1" value="1" cols="50" rows=5 maxlength="50" placeholder="こちらにみなさんが経験なさった令和の歴史を記してください。"></textarea>
+            </form>
+        </div>
+        <a class="padding"></a>
+        <a href="#" class="btn-circle-3d" onclick="send()">SEND</a>
+    </div>
 </div>
 </body>
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<!--<script src="animation.js"></script>-->
+<script src="main.js"></script>
 </html>
