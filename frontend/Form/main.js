@@ -4,15 +4,14 @@ function send() {
     const data = {text: text};
 
     fetch(url, {
-        method: 'POST', // or 'PUT'
-        body: JSON.stringify(data), // data can be `string` or {object}!
+        method: 'POST',
+        body: JSON.stringify(data),
         headers:{
             'Content-Type': 'application/json'
         }
     }).then(res => res.json())
         .then(response => console.log('Success:', JSON.stringify(response)))
         .then(document.form1.textarea1.value = "")
-        .then(alert("送信完了"))
         .catch(error => console.error('Error:', error));
 }
 
@@ -50,15 +49,4 @@ window.addEventListener('DOMContentLoaded', function () {
     },3300);
 });
 
-
-
-
-// el.addEventListener("DomContentLoaded", function() {
-//     // transition終了時の処理
-//     $(".mainSite").css("display", "none");
-//
-//     setTimeout(function() {
-//         $('.anime').fadeOut();
-//     }, 1700);
-// });
 
