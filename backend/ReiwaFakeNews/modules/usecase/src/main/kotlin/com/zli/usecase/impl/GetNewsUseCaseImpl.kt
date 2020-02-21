@@ -4,7 +4,7 @@ import com.zli.domain.repository.NewsRepository
 import com.zli.usecase.getnews.GetNewsResult
 import com.zli.usecase.getnews.GetNewsUseCase
 
-class GetNewsUseCaseImpl(
+internal class GetNewsUseCaseImpl(
     private val newsRepository: NewsRepository
 ) : GetNewsUseCase {
 

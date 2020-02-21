@@ -5,7 +5,7 @@ import com.zli.domain.repository.NewsRepository
 import com.zli.usecase.savenews.SaveNewsResult
 import com.zli.usecase.savenews.SaveNewsUseCase
 
-class SaveNewsUseCaseImpl(
+internal class SaveNewsUseCaseImpl(
     private val newsRepository: NewsRepository
 ) : SaveNewsUseCase {
     override suspend fun execute(text: String): SaveNewsResult {
