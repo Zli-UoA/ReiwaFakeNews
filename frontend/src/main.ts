@@ -6,8 +6,10 @@ import {
     CubismMotionManager,
     CubismEyeBlink
 } from './index';
-import AppCubismUserModel from './model/AppCubismUserModel';
 
+import AppCubismUserModel from './model/AppCubismUserModel';
+const music = new Audio(require('./sample2.mp3'));
+music.load();
 
 document.addEventListener('DOMContentLoaded', async () => {
 
@@ -98,7 +100,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         for(let j = 0; j < modelSetting.getMotionCount(groupName); j++) {
 
             const filename = modelSetting.getMotionFileName(groupName, j);
-            if(filename == "motions/haru_g_m06.motion3.json" || filename === "motions/haru_g_idle.motion3.json") {
+            console.log(filename);
+            if(filename == "motions/haru_g_m06.motion3.json" || filename === "motions/haru_g_idle.motion3.json"){
                 motionMetaDataArr.push({
                     path: `${resourcesDir}${filename}`,
                     fadeIn: modelSetting.getMotionFadeInTimeValue(groupName, j),
@@ -350,8 +353,44 @@ function setMotioinName(name: string) {
     // motionNameElement.innerText = name;
 }
 
-document.addEventListener("keydown", async (event) => {
+document.addEventListener("keydown", (event) => {
    if (event.key === 'a') {
-
+       const audioData = getSpeakData();
+       audioData.then((res :{newsList: []} ) => {
+           res.newsList.forEach( ( speakData : {text: string}, index:number ) => {
+               if(index !== res.newsList.length - 1 ){
+                   speak(speakData.text)
+               } else {
+                   speak(speakData.text, true);
+               }
+           });
+       })
    }
 });
+
+const speak = (text :string, cancel :boolean = false) :void=> {
+    music.play();
+    music.addEventListener('ended', (event) => {
+        const uttr = new SpeechSynthesisUtterance(text);
+        const voice = speechSynthesis.getVoices().find(function(voice) {
+            return voice.name === 'Google 日本語'
+        });
+        if (voice) {
+            uttr.voice  = voice;
+        }
+        speechSynthesis.speak(uttr);
+        if (cancel) {
+            uttr.onend = function () {
+                //  memo: errorがでたらここのせいかも
+                speechSynthesis.cancel();
+            }
+        }
+    });
+};
+
+const getSpeakData = async () => {
+    const url = 'http://localhost:8080/news';
+    const response = await fetch(url);
+    const data = response.json();
+    return data;
+};
