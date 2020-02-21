@@ -1,10 +1,9 @@
-package com.zli
+package com.zli.application
 
-import com.zli.adapter.db.repository.NewsRepositoryOnRDBMS
+import com.zli.adapter.RepositoryProvider
 import com.zli.adapter.router.getNewsRoute
 import com.zli.adapter.router.saveNewsRoute
-import com.zli.usecase.impl.GetNewsUseCaseImpl
-import com.zli.usecase.impl.SaveNewsUseCaseImpl
+import com.zli.usecase.provider.UseCaseProvider
 import io.ktor.application.*
 import io.ktor.response.*
 import io.ktor.features.*
@@ -29,8 +28,10 @@ fun Application.module(testing: Boolean = false) {
     DBHelper.initDB()
 
     install(CORS) {
-        allowSameOrigin = false
         anyHost()
+        method(HttpMethod.Post)
+        allowSameOrigin = false
+        allowNonSimpleContentTypes = true
     }
 
     install(ContentNegotiation) {
@@ -39,12 +40,15 @@ fun Application.module(testing: Boolean = false) {
 
     install(Locations)
 
+    install(CallLogging)
+
     install(Routing) {
-        val newsRepository = NewsRepositoryOnRDBMS
-        val getNewsUseCase = GetNewsUseCaseImpl(newsRepository)
+        val newsRepository = RepositoryProvider.provideNewsRepository()
+        val useCaseProvider = UseCaseProvider(newsRepository)
+        val getNewsUseCase = useCaseProvider.provideGetNewsUseCase()
         getNewsRoute(getNewsUseCase)
 
-        val saveNewsUseCase = SaveNewsUseCaseImpl(newsRepository)
+        val saveNewsUseCase = useCaseProvider.provideSaveNewsUseCase()
         saveNewsRoute(saveNewsUseCase)
     }
 

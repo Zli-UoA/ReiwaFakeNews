@@ -1,4 +1,4 @@
-package com.zli
+package com.zli.application
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
