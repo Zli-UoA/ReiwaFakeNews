@@ -1,9 +1,9 @@
-package com.zli.adapter.domain.impl
+package com.zli.adapter.mock
 
 import com.zli.domain.model.News
 import com.zli.domain.repository.NewsRepository
 
-object MockNewsRepository : NewsRepository {
+internal object MockNewsRepository : NewsRepository {
 
     private val newsList = arrayListOf(
         News(

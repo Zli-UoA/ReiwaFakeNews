@@ -6,7 +6,7 @@ import com.zli.domain.model.News
 import com.zli.domain.repository.NewsRepository
 import org.jetbrains.exposed.sql.transactions.transaction
 
-object NewsRepositoryOnRDBMS : NewsRepository {
+internal object NewsRepositoryOnRDBMS : NewsRepository {
     override suspend fun findRandom(n: Int): List<News> {
         return transaction {
             NewsDao.all()

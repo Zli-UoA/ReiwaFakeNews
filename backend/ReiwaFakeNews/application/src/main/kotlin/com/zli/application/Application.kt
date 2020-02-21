@@ -1,6 +1,6 @@
 package com.zli.application
 
-import com.zli.adapter.db.repository.NewsRepositoryOnRDBMS
+import com.zli.adapter.RepositoryProvider
 import com.zli.adapter.router.getNewsRoute
 import com.zli.adapter.router.saveNewsRoute
 import com.zli.usecase.provider.UseCaseProvider
@@ -43,7 +43,7 @@ fun Application.module(testing: Boolean = false) {
     install(CallLogging)
 
     install(Routing) {
-        val newsRepository = NewsRepositoryOnRDBMS
+        val newsRepository = RepositoryProvider.provideNewsRepository()
         val useCaseProvider = UseCaseProvider(newsRepository)
         val getNewsUseCase = useCaseProvider.provideGetNewsUseCase()
         getNewsRoute(getNewsUseCase)
