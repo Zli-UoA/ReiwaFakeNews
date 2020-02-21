@@ -1,4 +1,4 @@
-package com.zli
+package com.zli.application
 
 import com.typesafe.config.ConfigFactory
 import io.ktor.config.HoconApplicationConfig

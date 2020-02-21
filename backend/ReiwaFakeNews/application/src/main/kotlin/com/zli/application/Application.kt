@@ -1,4 +1,4 @@
-package com.zli
+package com.zli.application
 
 import com.zli.adapter.db.repository.NewsRepositoryOnRDBMS
 import com.zli.adapter.router.getNewsRoute
