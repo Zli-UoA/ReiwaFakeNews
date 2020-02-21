@@ -1,9 +1,5 @@
 //axiosを使わずmockの方
-const music = new Audio();
-
-music.preload = "auto";
-music.src = "./sample2.mp3";
-music.load();
+const music = new Audio('./sample2.mp3');
 
 //これを３回ならす
 function speak(){
