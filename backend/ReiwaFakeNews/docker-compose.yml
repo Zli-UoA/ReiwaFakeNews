@@ -4,7 +4,7 @@ services:
     image: yt8492/reiwa-fake-news-backend:latest
     container_name: "reiwa-fake-news-backend"
     ports:
-      - "8080:8080"
+      - "8492:8080"
     environment:
       DB_DRIVER: org.postgresql.Driver
       DB_URL: jdbc:postgresql://db:5432/reiwa-fake-news-db
