@@ -11,6 +11,7 @@ function send() {
         }
     }).then(res => res.json())
         .then(response => console.log('Success:', JSON.stringify(response)))
+        .then(document.form1.textarea1.value = "")
         .catch(error => console.error('Error:', error));
 }
 
