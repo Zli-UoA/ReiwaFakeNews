@@ -29,8 +29,10 @@ fun Application.module(testing: Boolean = false) {
     DBHelper.initDB()
 
     install(CORS) {
-        allowSameOrigin = false
         anyHost()
+        method(HttpMethod.Post)
+        allowSameOrigin = false
+        allowNonSimpleContentTypes = true
     }
 
     install(ContentNegotiation) {
@@ -38,6 +40,8 @@ fun Application.module(testing: Boolean = false) {
     }
 
     install(Locations)
+
+    install(CallLogging)
 
     install(Routing) {
         val newsRepository = NewsRepositoryOnRDBMS
