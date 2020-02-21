@@ -9,12 +9,15 @@ internal class SaveNewsUseCaseImpl(
     private val newsRepository: NewsRepository
 ) : SaveNewsUseCase {
     override suspend fun execute(text: String): SaveNewsResult {
-        return try {
+        try {
+            if (text.isBlank()) {
+                return SaveNewsResult.Failure.EmptyForm()
+            }
             val news = News(text)
             newsRepository.save(news)
-            SaveNewsResult.Success(news)
+            return SaveNewsResult.Success(news)
         } catch (e: Exception) {
-            SaveNewsResult.Failure(e.message ?: "unknown error")
+            return SaveNewsResult.Failure.Unknown(e)
         }
     }
 }
