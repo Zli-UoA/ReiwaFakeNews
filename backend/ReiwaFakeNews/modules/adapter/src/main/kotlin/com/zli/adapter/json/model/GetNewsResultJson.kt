@@ -6,11 +6,11 @@ sealed class GetNewsResultJson : Result {
 
     @Serializable
     data class Success(val newsList: List<NewsJson>) : GetNewsResultJson() {
-        override val isSuccess: Boolean = true
+        override val statusCode: Int = 200
     }
 
     @Serializable
     data class Failure(val error: String) : GetNewsResultJson() {
-        override val isSuccess: Boolean = false
+        override val statusCode: Int = 400
     }
 }
