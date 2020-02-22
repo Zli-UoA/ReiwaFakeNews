@@ -240,16 +240,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         // 頂点の更新
         model.update(deltaTimeSecond);
 
-        // if (model.isMotionFinished) {
-        //
-        //     const idx = Math.floor(Math.random() * model.motionNames.length);
-        //     const name = model.motionNames[idx];
-        //     model.startMotionByName(name);
-        //
-        //     setMotioinName(name);
-        //
-        // }
-
         viewport[2] = canvas.width;
         viewport[3] = canvas.height;
         model.getRenderer().setRenderState(frameBuffer, viewport);
