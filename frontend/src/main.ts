@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', async () => {
      * Live2Dモデルの表示に必要なファイルのパスを設定から取得する
      */
 
-    // .moc3
+        // .moc3
     const moc3FilePath = `${resourcesDir}${modelSetting.getModelFileName()}`;
 
     // テクスチャ
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', async () => {
      * そのほかのファイルのパスを設定から取得する
      */
 
-    // .pose3.json
+        // .pose3.json
     const pose3FilePath = `${resourcesDir}${modelSetting.getPoseFileName()}`;
 
     // .motion3.json
@@ -224,13 +224,13 @@ document.addEventListener('DOMContentLoaded', async () => {
      * Live2Dモデルの描画
      */
 
-    // フレームバッファとビューポートを、フレームワーク設定
+        // フレームバッファとビューポートを、フレームワーク設定
     const viewport: number[] = [
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    ];
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        ];
 
     // 最後の更新時間
     let lastUpdateTime = 0;
@@ -352,7 +352,12 @@ function setMotioinName(name: string) {
 }
 
 const wait = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
-
+const getSpeakData = async () => {
+    const url = 'http://35.208.182.27:8492/news';
+    const response = await fetch(url);
+    const data = response.json();
+    return data;
+};
 document.addEventListener("keydown", (event) => {
     if (event.key === 'a') {
         const audioData = getSpeakData();
@@ -367,7 +372,6 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
-
 const speak = (speakContents :Array<{text: string}>) :void=> {
     let teropp = document.getElementById('teropp');
     let teroppText = '';
@@ -375,27 +379,28 @@ const speak = (speakContents :Array<{text: string}>) :void=> {
     Promise.resolve()
         .then( () => {
             controlAudio(speakContents[0].text)
-            teroppText = speakContents[0].text;
+            teroppText = speakContents[0].text
             teroppNode = document.createTextNode(teroppText)
             teropp.appendChild(teroppNode)
         } )
         .then( () => wait(3000))
         .then( () => {
-            controlAudio(speakContents[1].text)
             teropp.removeChild(teroppNode)
-            teroppText = speakContents[1].text;
+            controlAudio(speakContents[1].text)
+            teroppText = speakContents[1].text
             teroppNode = document.createTextNode(teroppText)
             teropp.appendChild(teroppNode)
         })
         .then( () => wait(3000))
         .then( () => {
-            controlAudio(speakContents[2].text,true);
             teropp.removeChild(teroppNode)
-            teroppText = speakContents[2].text;
+            controlAudio(speakContents[2].text,true);
+            teroppText = speakContents[2].text
             teroppNode = document.createTextNode(teroppText)
             teropp.appendChild(teroppNode)
         });
 };
+
 
 const controlAudio = (text :string,cancel :boolean = false) => {
     const uttr = new SpeechSynthesisUtterance(text);
@@ -414,9 +419,4 @@ const controlAudio = (text :string,cancel :boolean = false) => {
     }
 };
 
-const getSpeakData = async () => {
-    const url = 'http://35.208.182.27:8492/news';
-    const response = await fetch(url);
-    const data = response.json();
-    return data;
-};
+
