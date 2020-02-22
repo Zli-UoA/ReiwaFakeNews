@@ -11,7 +11,7 @@ internal class SaveNewsUseCaseImpl(
     override suspend fun execute(text: String): SaveNewsResult {
         try {
             if (text.isBlank()) {
-                return SaveNewsResult.Failure.EmptyForm()
+                return SaveNewsResult.Failure.EmptyForm
             }
             val news = News(text)
             newsRepository.save(news)
