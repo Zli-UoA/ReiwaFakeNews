@@ -1,8 +1,9 @@
 package com.zli.application
 
-import com.zli.adapter.RepositoryProvider
-import com.zli.adapter.router.getNewsRoute
-import com.zli.adapter.router.saveNewsRoute
+import com.zli.adapter.provider.controller.ControllerProvider
+import com.zli.adapter.provider.repository.RepositoryProvider
+import com.zli.application.router.getNewsRoute
+import com.zli.application.router.saveNewsRoute
 import com.zli.usecase.provider.UseCaseProvider
 import io.ktor.application.*
 import io.ktor.response.*
@@ -46,10 +47,12 @@ fun Application.module(testing: Boolean = false) {
         val newsRepository = RepositoryProvider.provideNewsRepository()
         val useCaseProvider = UseCaseProvider(newsRepository)
         val getNewsUseCase = useCaseProvider.provideGetNewsUseCase()
-        getNewsRoute(getNewsUseCase)
-
         val saveNewsUseCase = useCaseProvider.provideSaveNewsUseCase()
-        saveNewsRoute(saveNewsUseCase)
+        val controllerProvider = ControllerProvider(getNewsUseCase, saveNewsUseCase)
+        val getNewsController = controllerProvider.provideGetNewsController()
+        val saveNewsController = controllerProvider.provideSaveNewsController()
+        getNewsRoute(getNewsController)
+        saveNewsRoute(saveNewsController)
     }
 
     routing {
