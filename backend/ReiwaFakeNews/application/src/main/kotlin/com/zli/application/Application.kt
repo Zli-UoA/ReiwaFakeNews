@@ -1,6 +1,6 @@
 package com.zli.application
 
-import com.zli.adapter.RepositoryProvider
+import com.zli.adapter.provider.repository.RepositoryProvider
 import com.zli.adapter.router.getNewsRoute
 import com.zli.adapter.router.saveNewsRoute
 import com.zli.usecase.provider.UseCaseProvider
