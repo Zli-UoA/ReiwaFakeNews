@@ -6,8 +6,10 @@ import {
     CubismMotionManager,
     CubismEyeBlink
 } from './index';
-import AppCubismUserModel from './model/AppCubismUserModel';
 
+import AppCubismUserModel from './model/AppCubismUserModel';
+const music = new Audio(require('./sample2.mp3'));
+music.load();
 
 document.addEventListener('DOMContentLoaded', async () => {
 
@@ -66,7 +68,7 @@ document.addEventListener('DOMContentLoaded', async () => {
      * Live2Dモデルの表示に必要なファイルのパスを設定から取得する
      */
 
-    // .moc3
+        // .moc3
     const moc3FilePath = `${resourcesDir}${modelSetting.getModelFileName()}`;
 
     // テクスチャ
@@ -82,7 +84,7 @@ document.addEventListener('DOMContentLoaded', async () => {
      * そのほかのファイルのパスを設定から取得する
      */
 
-    // .pose3.json
+        // .pose3.json
     const pose3FilePath = `${resourcesDir}${modelSetting.getPoseFileName()}`;
 
     // .motion3.json
@@ -98,7 +100,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         for(let j = 0; j < modelSetting.getMotionCount(groupName); j++) {
 
             const filename = modelSetting.getMotionFileName(groupName, j);
-            if(filename == "motions/haru_g_m06.motion3.json" || filename === "motions/haru_g_idle.motion3.json") {
+            if(filename == "motions/haru_g_m06.motion3.json" || filename === "motions/haru_g_idle.motion3.json"){
                 motionMetaDataArr.push({
                     path: `${resourcesDir}${filename}`,
                     fadeIn: modelSetting.getMotionFadeInTimeValue(groupName, j),
@@ -107,7 +109,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         }
     }
-
 
     // .physics3.json
     const physics3FilePath = `${resourcesDir}${modelSetting.getPhysicsFileName()}`;
@@ -223,13 +224,13 @@ document.addEventListener('DOMContentLoaded', async () => {
      * Live2Dモデルの描画
      */
 
-    // フレームバッファとビューポートを、フレームワーク設定
+        // フレームバッファとビューポートを、フレームワーク設定
     const viewport: number[] = [
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    ];
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        ];
 
     // 最後の更新時間
     let lastUpdateTime = 0;
@@ -350,8 +351,73 @@ function setMotioinName(name: string) {
     // motionNameElement.innerText = name;
 }
 
-document.addEventListener("keydown", async (event) => {
-   if (event.key === 'a') {
+const wait = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
 
-   }
+document.addEventListener("keydown", (event) => {
+    if (event.key === 'a') {
+        const audioData = getSpeakData();
+        console.log(audioData);
+        audioData.then((res :{newsList: []} ) => {
+            music.play();
+            music.addEventListener('ended', function endMusic(event) {
+                music.removeEventListener('ended', endMusic);
+                speak(res.newsList);
+            });
+        })
+    }
 });
+
+const speak = (speakContents :Array<{text: string}>) :void=> {
+    let teropp = document.getElementById('teropp');
+    let teroppText = '';
+    let teroppNode = document.createTextNode("ohayou");
+    Promise.resolve()
+        .then( () => {
+            controlAudio(speakContents[0].text)
+            teroppText = speakContents[0].text
+            teroppNode = document.createTextNode(teroppText)
+            teropp.appendChild(teroppNode)
+        } )
+        .then( () => wait(3000))
+        .then( () => {
+            teropp.removeChild(teroppNode)
+            controlAudio(speakContents[1].text)
+            teroppText = speakContents[1].text
+            teroppNode = document.createTextNode(teroppText)
+            teropp.appendChild(teroppNode)
+        })
+        .then( () => wait(3000))
+        .then( () => {
+            teropp.removeChild(teroppNode)
+            controlAudio(speakContents[2].text,true);
+            teroppText = speakContents[2].text
+            teroppNode = document.createTextNode(teroppText)
+            teropp.appendChild(teroppNode)
+        });
+};
+
+
+const controlAudio = (text :string,cancel :boolean = false) => {
+    const uttr = new SpeechSynthesisUtterance(text);
+    const voice = speechSynthesis.getVoices().find(function (voice) {
+        return voice.name === 'Google 日本語'
+    });
+    if (voice) {
+        uttr.voice = voice;
+    }
+    speechSynthesis.speak(uttr);
+    if (cancel) {
+        uttr.onend = function () {
+            //  memo: errorがでたらここのせいかも
+            speechSynthesis.cancel();
+        }
+    }
+};
+
+
+const getSpeakData = async () => {
+    const url = 'http://35.208.182.27:8492/news';
+    const response = await fetch(url);
+    const data = response.json();
+    return data;
+};

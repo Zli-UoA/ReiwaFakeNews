@@ -10,24 +10,29 @@
 }
 
 .contents {
-    background-color: #202020;
     box-sizing: border-box;
+    font-family: "American Typewriter";
     &__header {
         vertical-align: middle;
         width: 100vw;
-        height: 60px;
+        height: 70px;
         background-color: #171717;
         color: azure;
-        font-family: "American Typewriter";
         font-size: 2rem;
-        padding-left: 30px;
-        padding-top: 10px;
+        padding-left: 5%;
+        padding-top: 15px;
         nav {
             vertical-align: center;
             sup {
                 font-size: 1rem;
             }
         }
+    }
+    .title__name {
+        font-size: 30px;
+        color: azure;
+        letter-spacing: 2px;
+        padding-left: 5%;
     }
 }
 
@@ -45,7 +50,7 @@ body {
     background: #000;
     position: relative;
     border-top: 3px solid #888;
-    margin: 5%;
+    margin: 5% 5% 2% 5%;
     padding: 2% 2% 4% 2%;
     border-radius: 10px;
     border-bottom-left-radius: 50% 2%;
@@ -76,6 +81,13 @@ body {
     position: relative;
     overflow: hidden;
     background-image: url("https://www.fujitv.co.jp/bijutsu/works/news/photo/w1802n01/main04.jpg");
+}
+
+.teropp {
+    position: relative;
+    top: 30px;
+    font-family: "American Typewriter";
+    text-space: abs(50);
 }
 
 
