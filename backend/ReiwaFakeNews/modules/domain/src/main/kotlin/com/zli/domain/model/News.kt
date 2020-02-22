@@ -6,8 +6,7 @@ import kotlinx.serialization.Serializable
 data class News(
     val text: String
 ) {
-    val tokenizedList: List<String> = text.splitToSequence("。")
+    val tokenizedList: List<String> = text.splitToSequence("。", ".", "\n")
         .filter { it.isNotBlank() }
-        .map { "$it。" }
         .toList()
 }
