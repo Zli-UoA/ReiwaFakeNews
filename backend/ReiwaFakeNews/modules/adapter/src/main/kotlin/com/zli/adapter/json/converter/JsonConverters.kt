@@ -9,7 +9,7 @@ import com.zli.usecase.savenews.SaveNewsResult
 
 fun News.toJson(): NewsJson = NewsJson(
     text,
-    tokenizedList
+    tokenizedList()
 )
 
 fun GetNewsResult.toJson(): GetNewsResultJson = when (this) {
