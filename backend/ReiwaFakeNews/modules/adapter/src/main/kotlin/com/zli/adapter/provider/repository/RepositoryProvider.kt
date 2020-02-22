@@ -1,4 +1,4 @@
-package com.zli.adapter
+package com.zli.adapter.provider.repository
 
 import com.zli.adapter.db.repository.NewsRepositoryOnRDBMS
 import com.zli.domain.repository.NewsRepository
