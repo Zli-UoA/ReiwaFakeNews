@@ -100,7 +100,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         for(let j = 0; j < modelSetting.getMotionCount(groupName); j++) {
 
             const filename = modelSetting.getMotionFileName(groupName, j);
-            console.log(filename);
             if(filename == "motions/haru_g_m06.motion3.json" || filename === "motions/haru_g_idle.motion3.json"){
                 motionMetaDataArr.push({
                     path: `${resourcesDir}${filename}`,
@@ -110,7 +109,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         }
     }
-
 
     // .physics3.json
     const physics3FilePath = `${resourcesDir}${modelSetting.getPhysicsFileName()}`;
@@ -353,39 +351,53 @@ function setMotioinName(name: string) {
     // motionNameElement.innerText = name;
 }
 
+const wait = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
+
 document.addEventListener("keydown", (event) => {
-   if (event.key === 'a') {
-       const audioData = getSpeakData();
-       audioData.then((res :{newsList: []} ) => {
-           res.newsList.forEach( ( speakData : {text: string}, index:number ) => {
-               if(index !== res.newsList.length - 1 ){
-                   speak(speakData.text)
-               } else {
-                   speak(speakData.text, true);
-               }
-           });
-       })
-   }
+    if (event.key === 'a') {
+        const audioData = getSpeakData();
+        console.log(audioData);
+        audioData.then((res :{newsList: []} ) => {
+            music.play();
+            music.addEventListener('ended', function endMusic(event) {
+                music.removeEventListener('ended', endMusic);
+                speak(res.newsList);
+            });
+        })
+    }
 });
 
-const speak = (text :string, cancel :boolean = false) :void=> {
-    music.play();
-    music.addEventListener('ended', (event) => {
-        const uttr = new SpeechSynthesisUtterance(text);
-        const voice = speechSynthesis.getVoices().find(function(voice) {
-            return voice.name === 'Google 日本語'
+
+const speak = (speakContents :Array<{text: string}>) :void=> {
+    Promise.resolve()
+        .then( () => {
+            controlAudio(speakContents[0].text)
+        } )
+        .then( () => wait(3000))
+        .then( () => {
+            controlAudio(speakContents[1].text)
+        })
+        .then( () => wait(3000))
+        .then( () => {
+            controlAudio(speakContents[2].text,true);
         });
-        if (voice) {
-            uttr.voice  = voice;
-        }
-        speechSynthesis.speak(uttr);
-        if (cancel) {
-            uttr.onend = function () {
-                //  memo: errorがでたらここのせいかも
-                speechSynthesis.cancel();
-            }
-        }
+};
+
+const controlAudio = (text :string,cancel :boolean = false) => {
+    const uttr = new SpeechSynthesisUtterance(text);
+    const voice = speechSynthesis.getVoices().find(function (voice) {
+        return voice.name === 'Google 日本語'
     });
+    if (voice) {
+        uttr.voice = voice;
+    }
+    speechSynthesis.speak(uttr);
+    if (cancel) {
+        uttr.onend = function () {
+            //  memo: errorがでたらここのせいかも
+            speechSynthesis.cancel();
+        }
+    }
 };
 
 const getSpeakData = async () => {
