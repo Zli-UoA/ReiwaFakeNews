@@ -11,8 +11,8 @@ internal object NewsRepositoryOnRDBMS : NewsRepository {
         return transaction {
             NewsDao.all()
                 .toList()
-                .subList(0, n)
                 .shuffled()
+                .subList(0, n)
                 .map { NewsConverter.convertToDomainModel(it) }
         }
     }
