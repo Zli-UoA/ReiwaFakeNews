@@ -10,7 +10,7 @@ import {
 import AppCubismUserModel from './model/AppCubismUserModel';
 const music = new Audio(require('./sample2.mp3'));
 music.load();
-
+const model = new AppCubismUserModel();
 document.addEventListener('DOMContentLoaded', async () => {
 
     const resourcesDir = './Resources/Haru/';
@@ -137,7 +137,6 @@ document.addEventListener('DOMContentLoaded', async () => {
      * Live2Dモデルの作成と設定
      */
 
-    const model = new AppCubismUserModel();
     // モデルデータをロード
     model.loadModel(moc3ArrayBuffer);
     // ポーズデータをロード
@@ -241,15 +240,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         // 頂点の更新
         model.update(deltaTimeSecond);
 
-        if (model.isMotionFinished) {
-
-            const idx = Math.floor(Math.random() * model.motionNames.length);
-            const name = model.motionNames[idx];
-            model.startMotionByName(name);
-
-            setMotioinName(name);
-
-        }
+        // if (model.isMotionFinished) {
+        //
+        //     const idx = Math.floor(Math.random() * model.motionNames.length);
+        //     const name = model.motionNames[idx];
+        //     model.startMotionByName(name);
+        //
+        //     setMotioinName(name);
+        //
+        // }
 
         viewport[2] = canvas.width;
         viewport[3] = canvas.height;
@@ -373,26 +372,30 @@ const speak = (speakContents :Array<{text: string}>) :void=> {
     let teroppNode = document.createTextNode("ohayou");
     Promise.resolve()
         .then( () => {
-            controlAudio(speakContents[0].text)
-            teroppText = speakContents[0].text
-            teroppNode = document.createTextNode(teroppText)
-            teropp.appendChild(teroppNode)
+            model.startMotionByName("./Resources/Haru/motions/haru_g_m06.motion3.json");
+            controlAudio(speakContents[0].text);
+            teroppText = speakContents[0].text;
+            teroppNode = document.createTextNode(teroppText);
+            teropp.appendChild(teroppNode);
         } )
         .then( () => wait(3000))
         .then( () => {
-            teropp.removeChild(teroppNode)
-            controlAudio(speakContents[1].text)
-            teroppText = speakContents[1].text
-            teroppNode = document.createTextNode(teroppText)
+            model.startMotionByName("./Resources/Haru/motions/haru_g_m06.motion3.json");
+            teropp.removeChild(teroppNode);
+            controlAudio(speakContents[1].text);
+            teroppText = speakContents[1].text;
+            teroppNode = document.createTextNode(teroppText);
             teropp.appendChild(teroppNode)
         })
         .then( () => wait(3000))
         .then( () => {
-            teropp.removeChild(teroppNode)
+            model.startMotionByName("./Resources/Haru/motions/haru_g_m06.motion3.json");
+            teropp.removeChild(teroppNode);
             controlAudio(speakContents[2].text,true);
-            teroppText = speakContents[2].text
-            teroppNode = document.createTextNode(teroppText)
+            teroppText = speakContents[2].text;
+            teroppNode = document.createTextNode(teroppText);
             teropp.appendChild(teroppNode)
+            model.startMotionByName("./Resources/Haru/motions/motions/haru_g_idle.motion3.json")
         });
 };
 
