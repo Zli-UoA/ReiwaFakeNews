@@ -352,12 +352,7 @@ function setMotioinName(name: string) {
 }
 
 const wait = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
-const getSpeakData = async () => {
-    const url = 'http://35.208.182.27:8492/news';
-    const response = await fetch(url);
-    const data = response.json();
-    return data;
-};
+
 document.addEventListener("keydown", (event) => {
     if (event.key === 'a') {
         const audioData = getSpeakData();
@@ -420,3 +415,9 @@ const controlAudio = (text :string,cancel :boolean = false) => {
 };
 
 
+const getSpeakData = async () => {
+    const url = 'http://35.208.182.27:8492/news';
+    const response = await fetch(url);
+    const data = response.json();
+    return data;
+};
