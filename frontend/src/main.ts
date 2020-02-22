@@ -369,17 +369,31 @@ document.addEventListener("keydown", (event) => {
 
 
 const speak = (speakContents :Array<{text: string}>) :void=> {
+    let teropp = document.getElementById('teropp');
+    let teroppText = '';
+    let teroppNode = document.createTextNode("ohayou");
     Promise.resolve()
         .then( () => {
             controlAudio(speakContents[0].text)
+            teroppText = speakContents[0].text;
+            teroppNode = document.createTextNode(teroppText)
+            teropp.appendChild(teroppNode)
         } )
         .then( () => wait(3000))
         .then( () => {
             controlAudio(speakContents[1].text)
+            teropp.removeChild(teroppNode)
+            teroppText = speakContents[1].text;
+            teroppNode = document.createTextNode(teroppText)
+            teropp.appendChild(teroppNode)
         })
         .then( () => wait(3000))
         .then( () => {
             controlAudio(speakContents[2].text,true);
+            teropp.removeChild(teroppNode)
+            teroppText = speakContents[2].text;
+            teroppNode = document.createTextNode(teroppText)
+            teropp.appendChild(teroppNode)
         });
 };
 
@@ -401,7 +415,7 @@ const controlAudio = (text :string,cancel :boolean = false) => {
 };
 
 const getSpeakData = async () => {
-    const url = 'http://localhost:8080/news';
+    const url = 'http://35.208.182.27:8492/news';
     const response = await fetch(url);
     const data = response.json();
     return data;

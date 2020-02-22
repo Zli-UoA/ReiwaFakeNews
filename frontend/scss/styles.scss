@@ -83,6 +83,13 @@ body {
     background-image: url("https://www.fujitv.co.jp/bijutsu/works/news/photo/w1802n01/main04.jpg");
 }
 
+.teropp {
+    position: relative;
+    top: 30px;
+    font-family: "American Typewriter";
+    text-space: abs(50);
+}
+
 
 @media all and (min-width: 960px) {
     #monitor {
