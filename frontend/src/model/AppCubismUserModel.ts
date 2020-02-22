@@ -98,7 +98,6 @@ export default class AppCubismUserModel extends CubismUserModel {
      * @param name モーション名
      */
     public startMotionByName(name: string) {
-
         const motion = this.motionResources[name];
 
         if (!motion) return;
