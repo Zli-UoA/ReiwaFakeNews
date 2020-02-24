@@ -14,6 +14,7 @@ import io.ktor.locations.KtorExperimentalLocationsAPI
 import io.ktor.locations.Locations
 import io.ktor.serialization.serialization
 import io.ktor.util.KtorExperimentalAPI
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.UnstableDefault
 import kotlinx.serialization.json.Json
 
@@ -37,6 +38,19 @@ fun Application.module(testing: Boolean = false) {
 
     install(ContentNegotiation) {
         serialization(json = Json.indented)
+    }
+
+    install(StatusPages) {
+        @Serializable
+        data class UnknownErrorJson(val message: String, val stackTrace: String)
+        exception<Throwable> { cause ->
+            val errorJson = UnknownErrorJson(
+                cause.message ?: "不明なエラー",
+                cause.stackTrace.joinToString("\n")
+            )
+            cause.printStackTrace()
+            call.respond(HttpStatusCode.InternalServerError, errorJson)
+        }
     }
 
     install(Locations)
