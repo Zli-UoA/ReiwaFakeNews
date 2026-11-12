@@ -1,5 +1,9 @@
 # Cubism Web Samples
 
+## このリポジトリでのビルド
+
+Node.js 24で `npm ci` を実行し、`npm run build-all` でビルドします。Webpack 5とts-loader 9に対応するTypeScript 5.9を使用します。CoreライブラリとFrameworkの必要ファイルが揃っている必要があります。
+
 Live2D Cubism 4 Editorで出力したモデルを表示するアプリケーションのサンプル実装です。
 
 Cubism Coreライブラリと組み合わせて使用します。
