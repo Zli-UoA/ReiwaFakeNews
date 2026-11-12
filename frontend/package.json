@@ -27,5 +27,11 @@
   },
   "dependencies": {
     "@types/node": "^13.7.4"
+  },
+  "overrides": {
+    "qs": "6.17.1"
+  },
+  "engines": {
+    "npm": ">=8.3.0"
   }
 }
