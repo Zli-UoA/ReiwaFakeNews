@@ -64,7 +64,7 @@ export class LAppDelegate
         canvas = <HTMLCanvasElement>document.getElementById("SAMPLE");
 
         // glコンテキストを初期化
-        gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+        gl = canvas.getContext("webgl") || (canvas.getContext("experimental-webgl") as WebGLRenderingContext | null);
 
         if(!gl)
         {
