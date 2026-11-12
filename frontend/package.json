@@ -7,7 +7,8 @@
     "start": "parcel public/index.html",
     "build": "parcel build src/main.ts -d dist/prd --no-source-maps",
     "copy": "mkdirp dist | ncp l2dsdk/Sample/TypeScript/Demo/Resources/ dist/Resources",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:decoder": "node test/decoder.cjs"
   },
   "repository": {
     "type": "git",
@@ -23,9 +24,16 @@
     "ncp": "^2.0.0",
     "node-sass": "^4.12.0",
     "parcel-bundler": "^1.12.3",
-    "typescript": "^3.6.3"
+    "typescript": "^3.6.3",
+    "decode-uri-component": "file:vendor/decode-uri-component"
   },
   "dependencies": {
     "@types/node": "^13.7.4"
+  },
+  "overrides": {
+    "decode-uri-component": "$decode-uri-component"
+  },
+  "engines": {
+    "npm": ">=9"
   }
 }
