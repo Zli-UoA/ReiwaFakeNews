@@ -1,0 +1,8 @@
+{
+  "name": "decode-uri-component",
+  "version": "0.5.1-zli.0",
+  "private": true,
+  "description": "Local CommonJS compatibility build of upstream decode-uri-component 0.5.1",
+  "main": "index.js",
+  "license": "MIT"
+}

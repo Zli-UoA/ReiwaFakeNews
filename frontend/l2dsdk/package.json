@@ -6,7 +6,8 @@
     "watch-sample": "npx webpack --watch --config sample.webpack.config.js",
     "build-all": "npm-run-all build-framework build-sample",
     "watch-all": "npm-run-all watch-framework watch-sample",
-    "serve": "serve"
+    "serve": "serve",
+    "test:decoder": "node test/decoder.cjs"
   },
   "devDependencies": {
     "glob": "^7.1.4",
@@ -15,10 +16,17 @@
     "ts-loader": "^6.0.4",
     "typescript": "^3.5.3",
     "webpack": "^4.39.1",
-    "webpack-cli": "^3.3.6"
+    "webpack-cli": "^3.3.6",
+    "decode-uri-component": "file:vendor/decode-uri-component"
   },
   "dependencies": {
     "whatwg-fetch": "^3.0.0"
   },
-  "private": true
+  "private": true,
+  "overrides": {
+    "decode-uri-component": "$decode-uri-component"
+  },
+  "engines": {
+    "npm": ">=9"
+  }
 }
